@@ -1,0 +1,51 @@
+Shell Active é um conjunto de ferramentas de linha de comando que interagem com as atividades definidas em seu espaço de trabalho.
+
+Comandos:
+
+* act-all (lista todas as atividades)
+	act-all [opções]
+	->  Estilos
+		Código
+		Shell Active
+		Música
+
+	# Opções:
+
+* act-this (Informa o nome da atividade atual)
+	act-this
+	-> 	Shell Active
+
+* act-change (Troca de atividade)
+	act-change activity-name
+
+* act-ls (lista o conteúdo da atividade mencionada [por padrão, a atividade 
+* atividade atual])
+	act-ls [activity-name] [-o ontology]
+	-> 	file1.hs
+		file2.lua
+		file3.ogg
+	
+	# Opções:
+	# - ontology
+	# 	exibe apenas os resultados que se enquadram na ontologia especificada 
+	# 	(conforme definidas pelo projeto Nepomuk: 
+	# 	http://oscaf.sourceforge.net/)
+	#
+	# 	act-ls -o nfo:Document
+	# 	-> 	file1.hs
+	# 		file2.lua
+
+* act-add (Adiciona arquivos à atividade mencionada [por padrão, a atividade 
+* atividade atual])
+	act-add content [activity-name]
+	
+	Se “content” for um diretório, adiciona todo os seus arquivos, recursivamente
+
+* act-rm content (Retira arquivos da atividade nomeada [por padrão, a atividade 
+* atual])
+	act-rm content [activity-name]
+
+	Se “content” for um diretório, retira todo o seu conteúdo, recursivamente
+
+* act-rename (Renomeia a atividade mencionada)
+	act-rename current-name new-name
