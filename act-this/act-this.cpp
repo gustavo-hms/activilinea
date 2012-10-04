@@ -4,7 +4,7 @@
 #include <QString>
 #include <QTextStream>
 
-QString getActivityName()
+QString activityName()
 {
 	KActivities::Consumer consumer;
 	KActivities::Info info(consumer.currentActivity());
@@ -15,7 +15,7 @@ int main(int argc, char *argv[])
 {
 	QCoreApplication app(argc, argv);
 	QTextStream out(stdout);
-	out << getActivityName() << endl;
+	out << activityName() << endl;
 	
 	return 0;
 }

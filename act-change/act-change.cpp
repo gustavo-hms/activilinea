@@ -24,7 +24,6 @@ int main(int argc, char *argv[])
 {
 	QCoreApplication app(argc, argv);
 	
-	
 	QString current = findId();
 	KActivities::Controller controller;
 	controller.setCurrentActivity(current);
