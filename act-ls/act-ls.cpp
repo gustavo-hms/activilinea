@@ -6,7 +6,7 @@
 
 QString prettyPrint(KUrl url)
 {
-	return url.prettyUrl();
+	return url.pathOrUrl();
 }
 
 QString listFiles()
