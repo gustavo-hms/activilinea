@@ -9,6 +9,11 @@
 #include <QTextStream>
 #include <QUrl>
 
+bool parseUnlink(const KCmdLineArgs *args)
+{
+	return args->isSet("unlink");
+}
+
 QList<QUrl> parseFilesToLink(const KCmdLineArgs *args)
 {
 	QDir dir;
@@ -56,7 +61,7 @@ QList<QUrl> directoryContent(QUrl dirUri) {
 }
 
 void linkFilesToActivity(QList<QUrl> files, QString activityId,
-                         bool recursively, bool excludeDirs)
+                         bool unlink, bool recursively, bool excludeDirs)
 {
 	KActivities::Consumer consumer;
 	
@@ -65,7 +70,7 @@ void linkFilesToActivity(QList<QUrl> files, QString activityId,
 		if (info.isDir()) {
 			if (recursively) {
 				QList<QUrl> content = directoryContent(uri);
-				linkFilesToActivity(content, activityId, recursively, excludeDirs);
+				linkFilesToActivity(content, activityId, unlink, recursively, excludeDirs);
 			}
 			
 			if (excludeDirs) {
@@ -73,7 +78,11 @@ void linkFilesToActivity(QList<QUrl> files, QString activityId,
 			}
 		}
 		
-		consumer.linkResourceToActivity(uri, activityId);
+		if (unlink) {
+			consumer.unlinkResourceFromActivity(uri, activityId);
+		} else {
+			consumer.linkResourceToActivity(uri, activityId);
+		}
 	}
 }
 
@@ -90,6 +99,7 @@ int main(int argc, char *argv[])
 	
 	KCmdLineOptions options;
 	options.add("+files", ki18n("The list of files to link to the activity"));
+	options.add("u").add("unlink", ki18n("Unlink files instead of linking"));
 	options.add("r").add("recursively", ki18n("Link files recursing the directory tree"));
 	options.add("a").add("activity <id>",
 	                     ki18n("The id of the activity to link the files to. Default to the current activity"));
@@ -100,9 +110,10 @@ int main(int argc, char *argv[])
 	
 	KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
 	
+	bool unlink = parseUnlink(args);
 	QString activityId = parseActivityId(args);
 	bool recursive = parseRecurse(args);
 	bool excludeDirs = parseExcludeDirs(args);
 	QList<QUrl> files = parseFilesToLink(args);
-	linkFilesToActivity(files, activityId, recursive, excludeDirs);
+	linkFilesToActivity(files, activityId, unlink, recursive, excludeDirs);
 }
