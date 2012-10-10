@@ -6,7 +6,6 @@
 #include <QDir>
 #include <QList>
 #include <QString>
-#include <QTextStream>
 #include <QUrl>
 
 bool parseUnlink(const KCmdLineArgs *args)
