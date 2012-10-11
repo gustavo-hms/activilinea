@@ -114,5 +114,9 @@ int main(int argc, char *argv[])
 	bool recursive = parseRecurse(args);
 	bool excludeDirs = parseExcludeDirs(args);
 	QList<QUrl> files = parseFilesToLink(args);
+	if (files.isEmpty()) {
+		KCmdLineArgs::usageError(ki18n("No files to link were informed").toString());
+	}
+	
 	linkFilesToActivity(files, activityId, unlink, recursive, excludeDirs);
 }
