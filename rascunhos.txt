@@ -20,7 +20,7 @@ Comandos:
 
 * act-ls (lista o conteúdo da atividade mencionada [por padrão, a atividade 
 * atividade atual])
-	act-ls [activity-name] [-o ontology]
+	act-ls [id] [-o ontology]
 	-> 	file1.hs
 		file2.lua
 		file3.ogg
@@ -35,17 +35,32 @@ Comandos:
 	# 	-> 	file1.hs
 	# 		file2.lua
 
-* act-add (Adiciona arquivos à atividade mencionada [por padrão, a atividade 
-* atividade atual])
-	act-add content [activity-name]
-	
-	Se “content” for um diretório, adiciona todo os seus arquivos, recursivamente
-
-* act-rm content (Retira arquivos da atividade nomeada [por padrão, a atividade 
+* act-ln (Relaciona arquivos à atividade mencionada [por padrão, a atividade 
 * atual])
-	act-rm content [activity-name]
+	act-ln [opções] arquivos
+	
+	Se “arquivos” incluir um diretório, adiciona todos os seus arquivos, 
+	recursivamente
 
-	Se “content” for um diretório, retira todo o seu conteúdo, recursivamente
+	# Opções:
+	# -u, --unlink
+	#  Remove o relacionamento entre os arquivos e a atividade em vez de 
+	#  criá-la
+	#
+	# -r, --recursively
+	#  Roda recursivamente pela árvore de diretórios
+	#
+	# -a --activity <id>
+	#  Informa o identificador da atividade à qual relacionar os arquivos. Por 
+	#  padrão, considera-se a atividade atual
+	#
+	# --exclude-dirs
+	#  Não relaciona os diretórios em si à atividade, apenas seu conteúdo
+
+* act-unlink (Retira arquivos da atividade nomeada [por padrão, a atividade 
+* atual]). Sinônimo para act-link -u
 
 * act-rename (Renomeia a atividade mencionada)
-	act-rename current-name new-name
+	act-rename [id] novo-nome
+
+	Se “id” não for especificado, pressupõe-se a atividade atual
